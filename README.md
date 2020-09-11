@@ -1,1 +1,1 @@
-# curso-vuejs
+# Curso de VueJS 2.0

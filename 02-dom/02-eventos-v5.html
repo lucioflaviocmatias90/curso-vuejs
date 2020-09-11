@@ -9,6 +9,8 @@
     <span v-on:mousemove.stop>PARAR AQUI</span>
   </p>
   <a href="https://www.google.com" v-on:click.prevent>Google</a>
+  <hr>
+  <input type="text" name="" v-on:keyup.enter="exibirAlerta">
 </div>
 
 <script>
@@ -31,6 +33,9 @@
       // parar: function (ev) {
       //   ev.stopPropagation();
       // }
+      exibirAlerta(ev) {
+        alert('Estou te alertando');
+      }
     }
   })
 </script>
