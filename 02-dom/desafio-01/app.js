@@ -5,8 +5,7 @@ new Vue({
       name: 'Lucio Flavio',
       age: 29
     },
-    imgSrc: 'http://vignette4.wikia.nocookie.net/spongebob/images/c/c6/SpongeBob_SquarePants.svg/revision/latest?cb=20101025015316',
-    myName: 'Lucio Flavio'
+    imgSrc: 'http://vignette4.wikia.nocookie.net/spongebob/images/c/c6/SpongeBob_SquarePants.svg/revision/latest?cb=20101025015316'
   },
   methods: {
     getRandomNumber: function () {
