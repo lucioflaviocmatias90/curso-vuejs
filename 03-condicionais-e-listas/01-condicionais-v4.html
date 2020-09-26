@@ -16,6 +16,13 @@
     <p v-else>Nenhum usuário logado</p>
     <button @click="logado = !logado">{{ logado ? 'Sair' : 'Entrar' }}</button>
     <input type="checkbox" v-model="anonimo"> anônimo
+    <hr>
+    <footer v-show="logado">
+      Desenvolvido por você
+    </footer>
+    <footer v-show="!logado">
+      Desenvolvido por você que é desconhecido
+    </footer>
   </div>
 </body>
 <script>
