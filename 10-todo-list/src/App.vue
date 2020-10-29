@@ -1,27 +1,42 @@
 <template>
 	<div id="app">
 		<h1>Tarefas</h1>
-		<task-grid :tasks="tasks" />
+		<new-task @taskAdded="addTask" />
+		<task-grid 
+			:tasks="tasks" 
+			@taskDeleted="deleteTask"
+			@taskStateChanged="toggleTaskState" />
 	</div>
 </template>
 
 <script>
+import NewTask from './components/NewTask'
 import TaskGrid from './components/TaskGrid'
 
 export default {
-	components: { TaskGrid },
+	components: { TaskGrid, NewTask },
 	data() {
 		return {
-			tasks : [
-				{
-					name: 'Lavar a louça',
-					pending: false
-				},
-				{
-					name: 'Comprar bluse',
-					pending: true
-				}
-			]
+			tasks : []
+		}
+	},
+	methods: {
+		addTask(task) {
+			const sameName = t => t.name === task.name
+			const reallyNew = this.tasks.filter(sameName).length == 0
+
+			if (reallyNew) {
+				this.tasks.push({
+					name: task.name,
+					pending: task.pending || true
+				})
+			}
+		},
+		deleteTask(i) {
+			this.tasks.splice(i, 1)
+		},
+		toggleTaskState(i) {
+			this.tasks[i].pending = !this.tasks[i].pending
 		}
 	},
 }
