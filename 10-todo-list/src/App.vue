@@ -1,6 +1,7 @@
 <template>
 	<div id="app">
 		<h1>Tarefas</h1>
+		<task-progress :progress="progress" />
 		<new-task @taskAdded="addTask" />
 		<task-grid 
 			:tasks="tasks" 
@@ -12,12 +13,28 @@
 <script>
 import NewTask from './components/NewTask'
 import TaskGrid from './components/TaskGrid'
+import TaskProgress from './components/TaskProgress'
 
 export default {
-	components: { TaskGrid, NewTask },
+	components: { TaskGrid, NewTask, TaskProgress },
 	data() {
 		return {
 			tasks : []
+		}
+	},
+	computed: {
+		progress() {
+			const total = this.tasks.length
+			const done = this.tasks.filter(t => !t.pending).length
+			return Math.round(done / total * 100) || 0
+		}
+	},
+	watch: {
+		tasks: {
+			deep: true,
+			handler() {
+				localStorage.setItem('tasks', JSON.stringify(this.tasks))
+			}
 		}
 	},
 	methods: {
@@ -38,6 +55,11 @@ export default {
 		toggleTaskState(i) {
 			this.tasks[i].pending = !this.tasks[i].pending
 		}
+	},
+	created() {
+		const json = localStorage.getItem('tasks')
+		const array = JSON.parse(json)
+		this.tasks = Array.isArray(array) ? array : []
 	},
 }
 </script>
